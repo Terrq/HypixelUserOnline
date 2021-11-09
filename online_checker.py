@@ -68,11 +68,11 @@ while True: # Infinite loop that runs the check function every second
     check = (onlineCheck(uuid))
     time.sleep(1) # Limited to 1 second so API key does not get blocked
     print(check) # Probably not needed
-    while check == "Online":
+    while len(check) == 49:
         check = (onlineCheck(uuid))
         time.sleep(1)
     print(check) # Probably not needed
-    while check != "Online":
+    while len(check) != 49:
         check = (onlineCheck(uuid))
         time.sleep(1)
 
