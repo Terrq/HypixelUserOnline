@@ -8,6 +8,8 @@ from datetime import datetime
 
 apiKey = "<YOUR API KEY>" # Replace with your own Hypixel API key (found by doing /api when logged in to hypixel)
 ign = input("Enter the users IGN: ") # Input for IGN
+now = datetime.now()
+currentTime = now.strftime("%H:%M:%S")
 
 ### Functions ###
 
@@ -48,12 +50,16 @@ def onlineCheck(uuid): # Function to check if a UUID is online
     extractedLogin = content[startLogin:startLogin+13] # Stores last login
     extractedLogout = content[startLogout:startLogout+13] # Stores last logout
 
-    logoutInt = int(extractedLogout)
-
+    loginInt = int(extractedLogin) # Stores last login as an integer
+    logoutInt = int(extractedLogout) # Stores last logout as an integer
+    
+    now = datetime.now() 
+    currentTime = now.strftime("%H:%M:%S") # Generates a live timestamp
+    
     if extractedLogin > extractedLogout: # Checks a user is online
-        return("Online")
+        return(currentTime+": Online (Joined " + datetime.utcfromtimestamp(loginInt/1000).strftime("%H:%M:%S") + ")") 
     else:
-        return("Last Logout: " + datetime.utcfromtimestamp(logoutInt/1000).strftime('%d-%m-%Y %H:%M:%S')) # Converts unix time to readable date
+        return(currentTime+": Offline (Last seen " + datetime.utcfromtimestamp(logoutInt/1000).strftime("%d-%m-%Y %H:%M:%S") + ")") # Converts unix time to readable date
 
 ### Main Script ###
 
